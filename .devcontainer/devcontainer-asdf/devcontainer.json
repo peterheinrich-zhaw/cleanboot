@@ -1,0 +1,13 @@
+{
+  "name": "cleanboot-asdf-devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "workspaceFolder": "/home/vscode/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached",
+  "mounts": [
+    ""
+  ],
+  "shutdownAction": "stopContainer"
+}

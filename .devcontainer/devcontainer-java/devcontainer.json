@@ -39,8 +39,43 @@
         }
     },
 
-    // Post-create command to verify Java
-    "postCreateCommand": "java -version && javac -version && mvn -version && gradle -version",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"redhat.java",
+				"vscjava.vscode-maven",
+				"vmware.vscode-boot-dev-pack",
+				"vmware.vscode-spring-boot",
+				"vscjava.vscode-spring-initializr",
+				"vscjava.vscode-java-debug",
+				"openai.chatgpt"
+				],
+			"settings": {
+				"java.server.launchMode": "Standard",
+				"java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+				"java.jdt.ls.lombokSupport.enabled": true,
+				"java.compile.nullAnalysis.mode": "automatic",
+				"java.configuration.runtimes": [ 
+					{
+						"name": "JavaSE-21",
+						"path": "/usr/local/sdkman/candidates/java/current",
+						"default": true
+					},
+					{
+						"name": "JavaSE-21",
+						"path": "/usr/local/sdkman/candidates/java/21.0.9-tem"
+					}
+				]
+			}
+		}
+	},
+	"hostRequirements": {
+		"cpus": 4,
+		"memory": "6gb",
+		"storage": "40gb"
+	}
 
     // VS Code extensions and settings
     "customizations": {
