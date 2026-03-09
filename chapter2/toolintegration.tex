@@ -16,7 +16,7 @@ befinden und natürlich Details zu einem bestimmten Bauteil abzufragen.
 
 Als Ergebnis wird JSON erwartet. Allerdings mit der Einschränkung, dass alle
 Elemente reine Strings sind. KiCad parst und konvertiert das eigenständig,
-wir werden auf Seite der Adapter das gleiche tun.
+wir werden auf Seite der Adapter das Gleiche tun.
 
 \begin{listing}[H]
 \begin{minted}{java}
@@ -110,7 +110,7 @@ für menschliche Akteure steuert auch dieser Controller UseCases an, die unser
 Domänenkern bereitstellt. Da wir bereits alles vorbereitet haben ist die 
 Methode, die den GET-Request abhandelt entsprechend kurz. Genau wie im 
 Trivialbeispiel müssen wir uns an dieser Stelle nicht darum kümmern, ob die
-\texttt{id} wirklich existiert. Sollte das nicht der Fall sein, wir unser
+\texttt{id} wirklich existiert. Sollte das nicht der Fall sein, wird unser
 Domänenkern eine \texttt{ComponentNotAvailableException} werfen. Dadurch wird
 unser REST-Controller mit einer 400-Bad-Request antworten, so wie wir das 
 übergreifend konfiguriert haben.

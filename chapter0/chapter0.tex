@@ -180,13 +180,13 @@ Schichtentrennung und modulares Design wird darin dann schwierig. Und dennoch
 gibt es viele gute Gegenbeispiele.
 
 Java hat hingegen den Nimbus Code-Qualität durch überbordende Komplexität 
-einzubüssen.``Enterprise''-Patterns werden teils verspottet, unzählige Klassen 
+einzubüssen. ``Enterprise''-Patterns werden teils verspottet, unzählige Klassen 
 zu produzieren um einfachste Probleme zu lösen. Und dennoch kann man kompakten
 Code schreiben.
 
 Fazit: Schlechter Code ist primär den Programmierenden geschuldet, sofern
 man sich der Limitierungen seiner Umgebung bewusst wird. Aber auch der 
-Technologiewahl. Manche Umgebungen (Node.js als negativbeispiel) erzeugen z.B.
+Technologiewahl. Manche Umgebungen (Node.js als Negativbeispiel) erzeugen z.B.
 regelmässig riesige Abhängigkeitsbäume so dass die SBOM gross und schwer zu 
 warten wird.
 Hier liegt die Gefahr in Sicherheitsmängeln der nahezu unüberschaubaren Anzahl
@@ -338,7 +338,7 @@ herunter und erstellen noch ein notwendiges Konfigurationsfile, damit auch
 die richtige Maven-Version Verwendung findet. Da wir das Skript direkt von
 den Maven-Wrapper-Sources nehmen, müssen wir noch selbst die Versionsnummer
 ersetzen. Dieser Schritt ist notwendig, da wir nicht daran interessiert sind
-den Maven-Wrapper komplett zu als Binärpaket zu bauen, sondern lediglich die 
+den Maven-Wrapper komplett als Binärpaket zu bauen, sondern lediglich die 
 Skripte benötigen.
 
 \begin{terminalbox}
@@ -425,8 +425,8 @@ SHA256-Hashwert, der uns nicht mit ausgeliefert wird:
 \begin{terminalbox}
 \begin{VerbatimBreak}
 \$ shasum -a 512 apache-maven-3.9.12-bin.zip
-0ef0d074761a55e7b982fd7f2cd6ea2da028289c73156ebd488c0513efbff8a64ac5bc0c11c3b8bbced930ce15238ecef344b0e065ae54f7cdca8c86cf39e736  apache-maven-3.9.11-bin.zip
-\$ cat apache-maven-3.9.11-bin.zip.sha512 
+0ef0d074761a55e7b982fd7f2cd6ea2da028289c73156ebd488c0513efbff8a64ac5bc0c11c3b8bbced930ce15238ecef344b0e065ae54f7cdca8c86cf39e736  apache-maven-3.9.12-bin.zip
+\$ cat apache-maven-3.9.12-bin.zip.sha512 
 0ef0d074761a55e7b982fd7f2cd6ea2da028289c73156ebd488c0513efbff8a64ac5bc0c11c3b8bbced930ce15238ecef344b0e065ae54f7cdca8c86cf39e736
 \$ shasum -a 256 apache-maven-3.9.12-bin.zip
 305773a68d6ddfd413df58c82b3f8050e89778e777f3a745c8e5b8cbea4018ef apache-maven-3.9.12-bin.zip
@@ -719,7 +719,7 @@ schreiben.
 
 \begin{rulebox}[label=rule:inversionOfControl]{Wir gehen keine
     Unnötigen Abhängikeiten durch manuelle Instantiierung ein.}
-Der Aufruf von \texttt{new} bindet unsere Klasse unweigerlich and das
+Der Aufruf von \texttt{new} bindet unsere Klasse unweigerlich an das
 zu instantiirende Objekt. Ist das ungewollt, schwächt das schnell
 die Testbarkeit unseres Codes, da dieser nicht mehr isoliert lauffähig
 ist.

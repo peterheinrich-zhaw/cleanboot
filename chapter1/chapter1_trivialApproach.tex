@@ -177,7 +177,7 @@ spring.h2.console.enabled=true
 
 Wir weisen spring also an die h2 Datenbank in-memory zu
 benutzen. Dass wir kein Passwort gesetzt haben ist ok,
-wie verwenden das momentan nur lokal. Aber Achtung: 
+wir verwenden das momentan nur lokal. Aber Achtung: 
 Die Default-Config würde unsere Anwendung zumindest auf
 unserem lokalen Netz nach aussen hin exponieren.
 
@@ -318,7 +318,7 @@ uns noch innerhalb einer laufenden Transaktion befinden. Genau
 das haben wir mit der Annotation ausgedrückt. Hat alles geklappt, 
 wird am Methodenende ein \textit{Commit} aufgerufen, anderenfalls
 folgt ein \textit{Rollback}. Ausserhalb des Transaktionskontexts
-werden keine Änderungen meh übernommen.
+werden keine Änderungen mehr übernommen.
 
 \subsection{REST-Interface}
 
@@ -475,7 +475,7 @@ Zudem haben wir auch Architektur-Probleme:
     Mocks verlangen um isoliert getestet werden zu können. Da wir das
     Repository mit \textit{@Autowired} injecten müsste sogar der ganze
     Spring-Kontext laufen. Das ist dann schon eher ein Integrationstest.
-    \item Unser Datenmodell ist Abhängig vom der JPA. Wir sind auf immer
+    \item Unser Datenmodell ist Abhängig von der JPA. Wir sind auf immer
     und ewig an eine relationale Datenbank gebunden. Falls wir das 
     umstellen wollten, müssten wir den ganzen Layer austauschen.
     \item In diesem Trivialbeispiel nicht wirklich sichtbar aber oftmals
@@ -753,12 +753,12 @@ public final class DeduplicateBooks {
     }
 }
 \end{minted}
-\caption{Unit-Test für die Title-Klasse}
+\caption{Deduplicate-Service}
 \label{lst:deduplicate}
 \end{listing}
 
 Das mag auf den ersten Blick etwas unkonventionell erscheinen, ist aber
-modernes Java. Collectors ind von \texttt{java.util}. Was wir hier
+modernes Java. Collectors sind von \texttt{java.util}. Was wir hier
 machen ist unsere Liste in eine Map abzubilden, wobei wir den Titel
 als Schlüssel und das Book-Objekt direkt als Wert 
 (\texttt{Functions.identity()}) für den Eintrag verwenden. Bei doppelten
@@ -835,14 +835,14 @@ Was wir am Schluss bauen wollen folgt der Idee einer
 
 Fangen wir bei der hexagonalen Architektur an, dessen Konzept wirklich von 
 der ersten Sekunde an überzuegt - leider vom Namen abgesehen. Weder hat das
-Ding sechs Seiten noch sechs ecken noch sonst irgendetwas mit Geometrie zu tun.
+Ding sechs Seiten noch sechs Ecken noch sonst irgendetwas mit Geometrie zu tun.
 Dem Internet nach gefiel dem Autor die Form weil es an Waben erinnere. So oder
 so, das Pattern geht auf Alistair Cockburn anfangs der 2000er Jahre zurück,
 der die \textit{Hexagonal Architecture} in einem gleichnamigen Buch 2024
 nochmals beschrieben hat \cite{cockburn_2024}. Im Folgenden werden diese
 Ideen verkürzt wiedergegeben.
 
-Der zentrale Punkt des Ansatzes ist die Kapselung eine Stücks zusammenhängender
+Der zentrale Punkt des Ansatzes ist die Kapselung eines Stücks zusammenhängender
 Business-Logik. In etwa so, wie wir das gerade eben programmiert haben. Mit
 Domain-Modell, Domain-Services, Tests - und wie wir gleich sehen werden noch
 mit Ports und Adaptern. Die Idee ist auch hier, dass das System innerhalb der
@@ -871,8 +871,8 @@ Verfügung stellt.
 
 Bevor das jetzt zu verwirrend wird - einigen wir uns darauf, dass die Ports,
 die unser Hexagon treiben nichts anderes als die Sammlung aller 
-\textit{Usecases} sind, die wir mit unserer Entwicklung bedienen wollen. An
-der Granularität diese Abbildung herrscht allerdings keine Einigkeit. Während 
+\textit{Usecases} sind, die wir mit unserer Entwicklung bedienen wollen. Bezüglich
+der Granularität dieser Abbildung herrscht allerdings keine Einigkeit. Während 
 Cockburn alle Usecases eines Actors zusammenfassen würde und dann quasi
 einen Port pro Actor abieten würde, sehen das die Verfechter von
 \textit{Clean Architecture} oder \textit{Domain Driven Design} entwas enger
@@ -883,7 +883,7 @@ deklariert werden. Sonst ändert sich nichts. Der Vorteil ist auch hier
 Lesbarkeit. Wenn ein Usecase pro Interface definiert ist, und man die
 Interfaces halbwegs intelligent benennt, dann sieht man bereits der 
 Deklaration der Klasse an, welche Usecases hier bedient werden. Und wieder
-ist man der Idee, dass der Code die Dokumentation ist ein Stück näher gekommen.
+ist man der Idee, dass der Code die Dokumentation ist, ein Stück näher gekommen.
 Wir machen das auch für uns jetzt erst mal so.
 
 Noch eine Randbemerkung zu unserem seiteneffektfreien, immutable und rein 
@@ -904,7 +904,7 @@ wird dabei sogar ganz nach aussen - also auf ausserhalb des Hxagons verschoben.
 \subsection{Onion Architecture}
 Der letzte Architekturbaustein ist die Onion-Architektur. Da muss ich gar
 nicht mehr viel dazu sagen, denn diese haben wir bereits vollständig erreicht.
-Wit haben bereits eine ganz saubere Schichtentrennung und darüber hinaus
+Wir haben bereits eine ganz saubere Schichtentrennung und darüber hinaus
 auch eine klare Abhängigkeitshierarchie. Das Domänen-Modell ist unabhängig 
 von allem, die Domänen-Services nur von Domänen-Modell. Der Applikationsring
 nur von der Domäne. Und alles aussen nur von der Domäne und den Ports.
@@ -915,12 +915,12 @@ Zusammengefasst bekommt unsere Gesamtarchitektur damit das folgende Bild
 (Abbildung \ref{fig:architecture}). Wie wir sehen, steht unser fachlicher Kern
 im Inneren des Hexagons. Dort sind die eben besprochenen \textit{immutable}
 Elemente zusammen mit einer technologiefreien Implementierung der 
-Usecases. Auf dieser Ebene müssen die Funktionen nicht mehr Seiteneffekt-
+Usecases. Auf dieser Ebene müssen die Funktionen nicht mehr seiteneffekt-
 aber zumindest technologiefrei sein. Es wird orchestriert aber alles was
 nicht zum Domänenkern gehört wird über Interfaces abgetrennt. Das sind die
 \textit{Ports}. Erst die technologieabhängigen Adapter implementieren
 letztendlich die gesamte I/O-Funktionalität. Somit können die verschiedenen
-Architekturansätze, die wir angeschaut haben sinnvoll kombiniert werden.
+Architekturansätze, die wir angeschaut haben, sinnvoll kombiniert werden.
 
 \begin{figure}[htbp]
   \centering
@@ -1000,7 +1000,7 @@ lesbarem Englisch "Die Klasse QueryBooksService implementiert die beiden
 Usecases ListAllBooks und LookupBook". Mehr müssen wir gar nicht wissen.
 
 Was wir noch nicht besprochen haben ist, wo die BookPersistence auf einmal
-herkommt. Hier kommen die \textit{driving ports} oder \textit{out ports} ins
+herkommt. Hier kommen die \textit{driven ports} oder \textit{out ports} ins
 Spiel. Da wir uns noch innerhalb unseres Hexagons befinden dürfen wir uns 
 noch nicht auf eine spezielle Implementierung festlegen - insofern ist das
 ebenfalls ein Interface (Listing \ref{lst:bookPersistence}).
@@ -1050,15 +1050,15 @@ public final class RegisterBookService implements RegisterBookUseCase {
 \label{lst:RegisterBookService}
 \end{listing}
 
-Man beachte das \textit{@Sercive} über der Klasse. Das wäre eigentlich von der
+Man beachte das \textit{@Service} über der Klasse. Das wäre eigentlich von der
 Architektur her verboten, denn es stellt eine technische Abhängigkeit der
 Klasse zu Spring her. Wenn man das sinnvoll argumentieren kann, dann lohnt
 sich zuweilen ein gewisser Pragmatismus. So auch in diesem Fall. 
-\textit{@Sercive}\ ändert nichts am Verhalten der Komponente und könnte bei der
+\textit{@Service}\ ändert nichts am Verhalten der Komponente und könnte bei der
 Portierung einfach gelöscht werden. Bei den Tests haben wir alleine schon 
 wegen den späteren Integrations- und Systemtests die Abhängigkeiten zu Spring
 auf Projektebene(!) ohnehin. Insofern ändert sich rein gar nichts und wir 
-ersparen uns dabei das redundante erstellen von den \textit{Configurers}.
+ersparen uns dabei das redundante Erstellen von den \textit{Configurers}.
 Spring beherrscht Dependency-Injection bereits in nahezu Perfektion.
 
 \subsection{Applikationsschicht - Tests}
@@ -1190,7 +1190,7 @@ implementiert.
 
 \subsection{Persistence Adapter mit JPA}
 
-Der Auftrag ist klar - wir müssen lediglich das Interface BookPersitance aus 
+Der Auftrag ist klar - wir müssen lediglich das Interface BookPersistence aus 
 Listing \ref{lst:bookPersistence} implementieren. Das werden wir ziemlich 
 Analog zu dem Code aus dem trivialen Beispiel umsetzen.
 
@@ -1231,7 +1231,7 @@ public interface BookRepository extends
 \end{listing}
 
 Somit haben wir bereits alle Teile beisammen um den Adapter zu
-finalisieren. Es fehlt nur noch seine eigentlich Implementierung,
+finalisieren. Es fehlt nur noch seine eigentliche Implementierung,
 wie in Listing \ref{lst:JpaBookPersistenceAdapter} gezeigt:
 
 \begin{listing}[H]
@@ -1284,26 +1284,26 @@ public class JpaBookPersistenceAdapter
 \label{lst:JpaBookPersistenceAdapter}
 \end{listing}
 
-Nichts davon solle wirklich überraschend sein ausser die beiden privaten
+Nichts davon sollte wirklich überraschend sein ausser die beiden privaten
 Funktionen \texttt{fromDomain} und \texttt{toDomain}. Da unsere
 Entity-Klasse sehr einfach aufgebaut ist und lediglich Strings
-benutzt müssen wir zwischen diesen beiden Repräsentationen umwandeln.
+benutzt, müssen wir nichts zwischen diesen beiden Repräsentationen umwandeln.
 Hier sei angemerkt, dass die Umwandlung \texttt{toDomain} bereits
 die volle Validierung vornimmt. Wir erinnern uns - ein invalides
-Domänenobjekt ist nicht intanziierbar. In gegenrichtung können wir
+Domänenobjekt ist nicht intanziierbar. In Gegenrichtung können wir
 uns darauf verlassen, dass wir keine invaliden Objekte an die 
 Datenbank liefern, da bereits das Interface an die Persistenz
 nur über Domänenobjekte definiert wurde. Somit können wir an dieser
 Stelle auf weitere Checks verzichten und sind fertig.
 
 Noch ein letzter Hinweis: Persistence ist nur ein Beispiel einer
-Service-übergreifender I/O Funktionalität. Logging würde man identisch
+Service-übergreifenden I/O Funktionalität. Logging würde man identisch
 mittels eines Ports und eines Adapters implementieren.
 
 \subsection{REST Adapter mit Springboot-web}
 
 Um das Ganze an die Aussenwelt anzubinden müssen wir eine Komponente 
-(einen \textit{Adapter}) schreiben, der unsere \textit{driven ports}
+(einen \textit{Adapter}) schreiben, der unsere \textit{driving ports}
 entsprechend ansteuert.
 
 \begin{listing}[H]
@@ -1400,7 +1400,7 @@ public class RestExceptionHandler {
 
 \subsection{Adaptertests als Integrationstests}
 Damit bleibt nur noch unsere Adapter zu testen. Ob man an dieser Stelle
-Unittest benötigt hängt von der Komplexität der Adapter ab. Für unsere
+Unittests benötigt hängt von der Komplexität der Adapter ab. Für unsere
 Zwecke genügen an dieser Stelle Integrationstests, da wir eigentlich nur
 fachlich langweiliges I/O in diesen Adaptern realisieren. Den Applikationskern
 und die Domäne haben wir ja bereits ausführlich getestet.
@@ -1438,7 +1438,7 @@ Es erfolgt ein \textit{Rollback} am Ende der Testmethode.
 Das wäre bei unserer In-Memory-H2-Datenbank zwar unwichtig aber es ist am 
 saubersten das gleich so zu spezifizieren.
 
-Final testen wir nun noch unseren REST-Adapter (Listing \ref{}).
+Final testen wir nun noch unseren REST-Adapter (Listing \ref{lst:BookControllerTest}).
 
 \begin{listing}[H]
 \begin{minted}{java}
@@ -1535,19 +1535,19 @@ bewusst eine Abhängigkeit in Kauf nehmen. Ebenso, was den funktionalen Kern
 angeht. Es ist eine (zugegeben extrem saubere) Möglichkeit eine 
 Domäne in Code abzubilden. Aber wir wissen ja aus unzähligen Projekten davor,
 dass es noch viele weitere gute Möglichkeiten gibt dies zu tun. 
-Die Lösung, die wir hier angeschaut haben bringt klar mehr Komplexität. Das ist
+Die Lösung, die wir hier angeschaut haben, bringt klar mehr Komplexität. Das ist
 erst mal schlecht - es kommt jedoch darauf an, welche Form von Komplexität man 
 anhäuft (\textit{incidental} vs. \textit{accidental} \textit{complexity}).
 Gegen \textit{incidental complexity} kann man nicht viel machen - die passiert
 einfach, oder liegt einfach vor. Wenn die modellierte Domäne komplex ist, wird
 das automatisch auch komplexeren Code nach sich ziehen (oder zumindest mehr 
 Code). Wer jetzt denkt, dass
-das Domänenmodell in unserem naiven Code den Sachverhalt viel weniger Komplex 
+das Domänenmodell in unserem naiven Code den Sachverhalt viel weniger komplex 
 abbilden konnte, der irrt insofern, als dass das Modell es verpasst hat die 
 Komplexität überhaupt abzubilden. Im Endeffekt ist das noch schlimmer - 
-erforderliche Komplexität die in Code und Tests ignoriert wird. Das ist 
+erforderliche Komplexität, die in Code und Tests ignoriert wird. Das ist 
 natürlich ein Problem denn so entsteht fehlerhafte Software. Durch fehlende
-Validierung und ein Modell, dass inkonsistente und falsche Repräsentationen
+Validierung und ein Modell, das inkonsistente und falsche Repräsentationen
 erlaubt entstehen auch schnell echte Sicherheitsprobleme. So oder so, die
 Domäne muss schon adäquat abgebildet werden.
 Anders sieht es bei der Zwiebel-, hexagonalen oder Ports und Adapter- 

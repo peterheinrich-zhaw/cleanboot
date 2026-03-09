@@ -1,7 +1,7 @@
 \section{Ein einfaches Vanilla-JS Frontend}
 Eigentlich soll Frontend-Entwicklung nicht der zentrale Fokus dieses Skripts
 sein. Hierzu gibt es unzählige bessere Tutorials und eine nicht abreissende
-Flut von immer neuen Ansätzen, Frameworks und Rädern die täglich neu erfunden
+Flut von immer neuen Ansätzen, Frameworks und Rädern, die täglich neu erfunden
 werden. Für jeden, der Informatik seriös studiert hat, ist Javascript wohl nach
 wie vor eine Zumutung. So schlimm, dass man mit TypeScript versucht hat
 einen Überbau zu erzeugen, der dann zu Javascript \textit{transpiliert}.
@@ -11,12 +11,12 @@ verstehen. Immerhin sind viele gute Ansätze aus TypeScript zu JavaScript
 zurück geflossen, so dass wir zumindest ordentliche Modulstrukturen und 
 ES6-Klassen erhalten haben.
 Hinzu kommen die stetig neuen Frameworks, die meist eines gemeinsam haben:
-Eine durch \textit{Node} verwaltete Dependency-Hölle. Es ist nicht ungewöhnlich
+Eine durch \textit{Node} verwaltete Dependency-Hölle. Es ist nicht ungewöhnlich,
 dass diese Scripts bereits für Demoapplikationen hunderte Pakete nachladen
 von zig verschiedenen Entwicklern. Täglich gibt es überall Bugfixes, teils
 mit breaking changes - ein Fixieren aller Versionen scheint aufgrund der 
 Bedrohungslage durch Fehler keine gute Idee. Aber vielleicht bin ich zu wenig
-Frontendentwickler um dafür Verständnis aufzubringen. Ausserdem darf 
+Frontendentwickler, um dafür Verständnis aufzubringen. Ausserdem darf 
 jeder/jede machen, was er/sie will.
 
 Diese Kapitel ist auch weniger meine Vorstellung ``wie es sein soll''
@@ -27,17 +27,17 @@ möglich ist.
 
 Anstelle von grossen Frameworks nehmen
 wir daher einfach nichts und bauen trotzdem ein Frontend. Ohne 
-Compile-Schritt, ohne Packetierung, ohne Depencency-Hölle. Man kann dieses
+Compile-Schritt, ohne Paketierung, ohne Depencency-Hölle. Man kann dieses
 Kapitel als Exploration lesen, wie sich Webentwicklung ohne Frameworks nur 
-mit WebStandards anfühlt. Am Schluss muss man selbst entscheiden ob das 
+mit Web-Standards anfühlt. Am Schluss muss man selbst entscheiden, ob das 
 für das eigene Projekt ein gangbarer Weg ist. Wahrscheinlich eher nicht ...
 
-In der aktuellen Form ist das - im Gegensatz zu den überlegungen im Backend -
+In der aktuellen Form ist das - im Gegensatz zu den Überlegungen im Backend -
 \textbf{NICHT} production-ready und soll auch nicht so verstanden werden.
 Mehr ein Denkansatz zum eigenen Evaluieren eines geeigneten Frontends.
 
 Immerhin sind wir durch die Beschränkung auf Web-Standards in hohem Masse
-Browserunabhängig und können auch recht sicher sein, dass so ein Frontend
+browserunabhängig und können auch recht sicher sein, dass so ein Frontend
 auch in 10+ Jahren noch identisch funktioniert.
 
 \subsection{Projekt-Setup}
@@ -107,8 +107,8 @@ nichts besseres eingefallen - ``Nano\&Pico'' soll das heissen. Es sollte
 ja möglichst kein sein. Egal, die drei Klassen unter \texttt{lib/} sollen
 einfach oft wiederverwendete Funktionen kapseln. \texttt{NPElement} erbt
 selbst von \texttt{HTMLElement} was wiederum zum WebStandard gehört.
-Eine der zentralen Funktionen ist safeHTML dass uns das \textit{Escapen} 
-der String-Literals ermöglicht. Daneben haben wir noch den \texttt{NPRouter}
+Eine der zentralen Funktionen ist safeHTML, das uns das \textit{Escapen} 
+der String-Literals ermöglicht. Daneben haben wir noch den \texttt{NPRouter},
 der einfache Routing-Funktionalitäten zur Navigation bereitstellt.
 Wie wir sehen, haben wir nur ganz wenige Routen. Der letzte Eintrag
 zeigt auch gleich, wie wir eine Seite mit einem übergebenen Parameter

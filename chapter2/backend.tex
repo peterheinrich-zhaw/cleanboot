@@ -32,7 +32,7 @@ werden. Jede Komponente gehört genau einer Kategorie an, und jede Komponente ha
 ein oder mehrere bestellbare Bauteile. Für alle Bauteile geltende 
 Spezifikationen (vorerst \textit{Attribute} genannt) auf Ebene der Komponente,
 falls alle bestellbaren Bauteile dies gleichermassen erfüllen. Anderenfalls gibt 
-es bauteilspezifische Attribute auf ebene der konkret bestellbaren Teile.
+es bauteilspezifische Attribute auf Ebene der konkret bestellbaren Teile.
 Das klingt eigentlich übersichtlich und einfach, die meisten von euch werden
 bereits nach diesen paar Zeilen eine recht klare Vorstellung einer passenden
 Objektstruktur im Kopf haben. Aber lasst uns das wieder sauber beginnen
@@ -91,7 +91,7 @@ Referenz auf die Liste immutable, aber noch nicht ihr Inhalt. Das darf natürlic
 nicht sein und wir erzeugen uns daher auf jeden Fall eine Kopie der bestehenden
 Liste, die uns übergeben wurde, damit nicht etwa der Aufrufende noch eine 
 Referenz darauf halten kann, um die Liste im Nachhinein 
-(also nach Verlassen unseres Konstruktors) nochzu manipulieren. 
+(also nach Verlassen unseres Konstruktors) noch zu manipulieren. 
 In diesem Fall tolerieren wir sogar einen Null-Wert und 
 ersetzen diesen sofort durch eine leere Liste. Die \texttt{copyOf}-Methode
 erzeugt uns übrigens eine read-only-Liste. Da nun sowohl die Referenz als auch die 
@@ -139,7 +139,7 @@ public record OrderableItem(
     }
 }
 \end{minted}
-\caption{Vollständig validierter OrderItem Record}
+\caption{Vollständig validierter OrderableItem Record}
 \label{lst:recordValidatedOrderItemModel}
 \end{listing}
 
@@ -194,11 +194,11 @@ public record UnitPrice(
     }
 }
 \end{minted}
-\caption{Price-Record mit Validation}
+\caption{UnitPrice-Record mit Validation}
 \label{lst:priceRecord}
 \end{listing}
 
-Listing \ref{lst:priceRecord} zeigt den Price-Record mit einer Validierung
+Listing \ref{lst:priceRecord} zeigt den UnitPrice-Record mit einer Validierung
 des Wertebereichs und der Sicherstellung der geforderten Genauigkeit der 
 Preisangabe. 4 Nachkommastellen sind nötig, da für kleine Bauteile 
 (z.B. Widerstände) die Stückpreise oft weit unterhalb von einem Rappen liegen.
@@ -227,7 +227,7 @@ public record ManufacturerPartNumber(
 Nun wollen wir noch die Attribute in den Griff bekommen. Diese sind gleich in
 mehrerer Hinsicht interessant. Erstens müssen sie widerspruchsfrei sein, d.h.
 jedes Label darf in jeder Liste auf Ebene der \texttt{OrderableItem} 
-und auch der \texttt{Componnet} nur einmal vorkommen. Alleine daran sehen wir,
+und auch der \texttt{Componet} nur einmal vorkommen. Alleine daran sehen wir,
 dass eine \texttt{java.util.Map} die bessere Datenstruktur scheint als eine 
 Liste - wenn wir \texttt{AttributeLabel} als \texttt{key} benutzen und 
 \texttt{AttributeValue} als \texttt{value} der Map, sind doppelte Einträge
@@ -274,7 +274,7 @@ public enum MeasuredQuantity {
     }
 }
 \end{minted}
-\caption{Quantity enum inkl. der Abbildung von Zahlenranges}
+\caption{MeasuredQuantity enum inkl. der Abbildung von Zahlenranges}
 \label{lst:quantityEnum}
 \end{listing}
 
@@ -369,14 +369,14 @@ public enum SpecifiedProperty {
     }
 }
 \end{minted}
-\caption{Gekürzt dargestelltes SpecifiedProperties-enum}
+\caption{Gekürzt dargestelltes SpecifiedProperty-enum}
 \label{lst:SpecifiedPropertyEnum}
 \end{listing}
 
 Hier könnte man wirklich diskutieren, ob man das nicht lieber mit
 Records abbildet um dann flexibler zu sein. Mit diesem Ansatz
-wäre hingegen eine parametrische Suche (wie etwa ``gib mir alle Bauteil
-mit jeder eigenschaft in jenem Bereich'') einfacher umzusetzen.
+wäre hingegen eine parametrische Suche (wie etwa ``gib mir alle Bauteile
+mit jeder Eigenschaft in jenem Bereich'') einfacher umzusetzen.
 
 Nun können wir alles zusammenfügen und endlich unsere Attribute verwalten. Da es
 mehr als nur irgendwelche Attribute sind, wollen wir einen Typ 
@@ -417,10 +417,10 @@ public record SpecificationItem(
 }
 \end{minted}
 \caption{Implementierung des SepcificationItem-Record inkl. Validierung}
-\label{lst:SpecifiedPropertyEnum}
+\label{lst:SpecifiedPropertyEnumWithValidation}
 \end{listing}
 
-Die Früchte unserer Arbeit erkennen wir spätestens, wenn wir eine Komponenten
+Die Früchte unserer Arbeit erkennen wir spätestens, wenn wir eine Komponente
 von Hand instanziieren wollen.
 
 \begin{listing}[H]
@@ -456,14 +456,14 @@ Component c = new Component(
 \label{lst:manualComponentInstantiation}
 \end{listing}
 
-Auch ohne, das wir in die Implementierung schauen müssen ist, dieses Stück
+Auch ohne, dass wir in die Implementierung schauen müssen, ist dieses Stück
 Code in sich lesbar und verständlich. Und wir können uns blind darauf verlassen,
 dass wir keine strukturellen Fehler gemacht haben, denn sonst wird das Objekt 
 erst gar nicht erzeugt. Wir wissen, dass alles vorhanden und entlang der 
 spezifizierten Regeln in sich konsistent ist.
 
 \section{Funktionales Domänenmodell - Unit testing}
-Beim Testen haben wir nun gleich zwei Vorteile. Ersten werden wir weniger Test
+Beim Testen haben wir nun gleich zwei Vorteile. Erstens werden wir weniger Tests
 brauchen, da der Aufgabenbereich des Domänen-Modells viel kleiner geworden ist.
 Wir können weder grossartig Konsistenzprobleme erzeugen noch kämen wir mit der
 Welt der Datenbanken oder anderer Schnittstellen in Berührung. Was die 
@@ -525,7 +525,7 @@ class StockKeepingUnitTest {
 \label{lst:skuTestcase}
 \end{listing}
 
-Wie wir sehen prüfen wir in Listing \ref{lst:skuTestcase} im Wesentlichen
+Wie wir sehen prüfen wir in Listing \ref{lst:skuTestcase} im Wesentlichen,
 ob unsere Validierungen im Konstruktor wie vorhergesehen funkionieren.
 Entweder müssen Exceptions geworfen werden oder wir überprüfen ob die
 Werte entsprechend unseren Wünschen gesetzt wurden.
@@ -584,7 +584,7 @@ public record BillOfMaterialEntry(
 }
 \end{minted}
 \caption{Zwei Records um BOMs abzubilden.}
-\label{lst:skuTestcase}
+\label{lst:billOfMaterial}
 \end{listing}
 
 Zusätzlich benötigen wir noch zwei Records um eine Bestellung abzubilden.
@@ -637,7 +637,7 @@ public record OrderEntry(
 \label{lst:OrderRecords}
 \end{listing}
 
-Im letzten Listing (\ref{lst:OrderRecords})sieht man auch gut, wie man ein 
+Im letzten Listing (\ref{lst:OrderRecords}) sieht man auch gut, wie man ein 
 Listen-Element eines immutable objects um einen Eintrag erweitert.
 Man tut das eben nicht sondern erzeugt ein neues, immutable object, das den
 neuen Eintrag additional beinhaltet. Das alte Objekt bleibt wie es ist.
@@ -708,7 +708,7 @@ dieser Stelle erreichen wir beides. Einerseits ist das eine
 ausschliesslich von den Datenstrukturen der Domain abhängig.
 
 \section{Applikation und Use-Cases}
-Nachdem die Domäne an und für sich abgebildet ist können wir beginnen
+Nachdem die Domäne an und für sich abgebildet ist, können wir beginnen
 die Usecases abzubilden. Das geht in diesem (trotzdem noch immer)
 einfachen Fall ganz gut, in grösseren Projekten wird dies wohl eher
 ein iterativer Prozess. Für dieses System sind 6 Usecases vorgesehen - 
@@ -750,7 +750,7 @@ An dieser Stelle auch nochmals unbedingt der Hinweis, dass wir die Use Cases
 aus Sicht der Domäne spezifizieren. Hier geht es explizit noch nicht um
 Datenformate für die Präsentation nach aussen hin. Das gilt sowohl für den
 Input, als auch für den Output. Man mag versucht sein, die einzige Methode
-den Use Cases direkt \texttt{invoke} zu nennen aber davon ist abzusehen.
+des Use Cases direkt \texttt{invoke} zu nennen aber davon ist abzusehen.
 Sobald ein Service mehrere Dieser Use Cases implementiert, müssten die
 Methoden strikt eine unterschiedliche Signatur aufweisen, was nicht immer
 gegeben sein muss. Für die Les- und Debugbarkeit ist das auch nicht förderlich.
@@ -785,7 +785,7 @@ public interface LoggingAdapter {
     void error(String message);
 }
 
-public interface StoragePersistanceAdapter {
+public interface StoragePersistenceAdapter {
     public void persistNewCompnent(Component component);
     public void updateComponent(InternalPartNumber original, Component replacement);
     public Optional<Component> loadComponent(InternalPartNumber ipn);
@@ -798,8 +798,8 @@ public interface StoragePersistanceAdapter {
 \label{lst:drivingPorts}
 \end{listing}
 
-Durch dieses Vorgehen lässt wich jegliches I/O aus dem inneren unseres Hexagons
-Isolieren. Innerhalb des Domänen-Kerns würden wir aber nicht mal dieses Angebot
+Durch dieses Vorgehen lässt sich jegliches I/O aus dem inneren unseres Hexagons
+isolieren. Innerhalb des Domänen-Kerns würden wir aber nicht mal dieses Angebot
 nutzen - dieser soll ja \textit{pure} bleiben. Auf der Schicht aussenrum werden
 hingegen die Usecases implementiert. An diesem Punkt ist I/O unumgänglich.
 
@@ -811,13 +811,13 @@ des AddOrderableItem-Usecase an:
 @Service
 public class ComponentsUpdateService implements AddOrderableItemUseCase {
 
-    private final RelationalComponentAdapter relationalComponentAdapter;
+    private final StoragePersistenceAdapter storagePersistenceAdapter;
     private final LoggingAdapter logger;
 
     public ComponentsUpdateService(
-            RelationalComponentAdapter relationalComponentAdapter, 
+            StoragePersistenceAdapter storagePersistenceAdapter, 
             LoggingAdapter logger) {
-        this.relationalComponentAdapter = relationalComponentAdapter;
+        this.storagePersistenceAdapter = storagePersistenceAdapter;
         this.logger = logger;
     }
 
@@ -827,7 +827,7 @@ public class ComponentsUpdateService implements AddOrderableItemUseCase {
         // *******************
         // *** Shell: I/O ***
         // *******************
-        Component component = relationalComponentAdapter.loadComponent(
+        Component component = storagePersistenceAdapter.loadComponent(
                 internalPartNumber).orElseThrow(ComponentNotAvailableException::new);
 
         // *******************
@@ -838,7 +838,7 @@ public class ComponentsUpdateService implements AddOrderableItemUseCase {
         // *******************
         // *** Shell: I/O ***
         // *******************
-        relationalComponentAdapter.updateComponent(internalPartNumber, component);
+        storagePersistenceAdapter.updateComponent(internalPartNumber, component);
         logger.info("AddOrderableItemUseCase added: " + orderableItem.mpn() 
             + " to Component " + component.ipn() );
         return component;
@@ -850,7 +850,7 @@ public class ComponentsUpdateService implements AddOrderableItemUseCase {
 \label{lst:addOrderable}
 \end{listing}
 
-An diesem Beispiel (Listing \ref{lst:addOrderable}) sieht man wie im Pattern
+An diesem Beispiel (Listing \ref{lst:addOrderable}) sieht man, wie im Pattern
 \textit{functional core \& imperative shell} die Trennung zwischen I\/O und
 den \textit{pure domain functions} vollzogen wird. Erstens nehmen wir
 an dieser Stelle selbst keinerlei I/O vor sondern verwenden dazu vollständig
@@ -866,8 +866,8 @@ noch vollständig technologiefrei und testbar.
 
 \section{Persistence Adapter}
 Genau wie bei dem Trivialbeispiel benötigen wir einen Persistenzadapter zu
-unserer Datenbank. Dazu erstellen wir uns Entity-Klassen die die Datenhaltung
-der relationalen Datenbank als Objekte Repräsentieren. Es genügt die
+unserer Datenbank. Dazu erstellen wir uns Entity-Klassen, die die Datenhaltung
+der relationalen Datenbank als Objekte repräsentieren. Es genügt die
 Hauptkomponente \texttt{ComponentEntity} anzuschauen:
 
 \begin{listing}[H]
@@ -913,7 +913,7 @@ Entities hervorzuheben. Mit \texttt{@OneToMay} bringen wir eine
 sowohl die \texttt{OrderableItemEntity}, als auch die 
 \texttt{AttributeEntity} vollständig abhängige Entitäten sind,
 die sowohl bei Persist als z.B. auch bei Delete mit angelegt oder
-entfernt werden. Wir forder sogar, dass es keine nicht-zugeordneten
+entfernt werden. Wir fordern sogar, dass es keine nicht-zugeordneten
 Entitäten von diesen beiden Typen geben darf. Enums können direkt
 aus dem Domänenmodell hinterlegt werden; wie in der Annotation
 deklariert, werden sie als Strings auf der Datenbank abgebildet.
@@ -947,7 +947,7 @@ aber nicht genügen. Aus Performance-Gründen haben wir eine numerische ID,
 die wir aber ausserhalb der Datenbank gar nicht verwenden. Unsere
 Domänenobjekte kennen diese ID nicht, denn es ist ein rein fachliches
 Artefakt, das nichts mit der Domäne zu tun hat. Genau an solchen Beispielen
-sehen wir die konzeptuellen Vorteile eines Domänengetriebenen Ansatzes.
+sehen wir die konzeptuellen Vorteile eines domänengetriebenen Ansatzes.
 So lassen wir überhaupt nicht zu, dass unsere Domänemodelle von
 technische Randbedingungen kontaminiert werden. Damit wir unsere Komponenten
 finden und nach Kategorien ordnen können. Das Interface zeigt hier beide 
@@ -962,7 +962,7 @@ Somit haben wir alles vorbereitet um unseren Persistenz-Adapter zu erstellen:
 \begin{minted}{java}
 @Service
 @AllArgsConstructor
-public class RelationalComponentAdapter implements StoragePersistanceAdapter {
+public class RelationalComponentAdapter implements StoragePersistenceAdapter {
 
     private ComponentRepository componentRepository;
 
@@ -1000,13 +1000,13 @@ public class RelationalComponentAdapter implements StoragePersistanceAdapter {
 \label{lst:persistenceAdapter}
 \end{listing}
 
-Da wir uns nun ausserhalb unseres Hexagons befinden dürfen wir an dieser Stelle
+Da wir uns nun ausserhalb unseres Hexagons befinden, dürfen wir an dieser Stelle
 jeden Technologiebezug haben, den wir uns wünschen. Durch die \texttt{@Service}
 Annotation kann Spring die Instanziierung dieser Klasse vornehmen,
 mittels \texttt{@AllArgsConstructor} erhalten wir über Lombok einen
 Konstruktor, der ein \textit{ComponentRepository} verlangen wird.
 Spring verdrahtet uns das automatisch. An dieser Stelle müssen wir auch
-zwischen Domänen und Entity-Objekten konvertieren. In diesem Fall passiert das
+zwischen Domänen- und Entity-Objekten konvertieren. In diesem Fall passiert das
 auf Ebene der Adapterimplementierung. Es hätte aber auch nichts dagegen
 gesprochen diese Abbildung in der Entity-Klasse vorzunehmen. Das wäre
 angebracht, wenn man diese Transformation in mehreren anderen Klassen bräuchte.
